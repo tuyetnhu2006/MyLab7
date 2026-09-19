@@ -8,32 +8,43 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public class MyAdapter extends RecyclerView.Adapter<CountryViewHolder> {
+public class MyAdapter extends RecyclerView.Adapter<ArticleViewHolder> {
     LayoutInflater mInflater;
-    private List countryList;
-    public MyAdapter(Context context, List list){
+    private ArrayList<Article> articleList;
+    public MyAdapter(Context context, ArrayList<Article> list){
         mInflater = LayoutInflater.from(context);
-        this.countryList = list;
+        this.articleList = list;
     }
     @NonNull
     @Override
-    public CountryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.country_layout, parent, false);
-        CountryViewHolder holder = new CountryViewHolder(view, this);
+    public ArticleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = mInflater.inflate(R.layout.article_layout, parent, false);
+        ArticleViewHolder holder = new ArticleViewHolder(view, this);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CountryViewHolder holder, int position) {
-        String country = (String) countryList.get(position);
-        holder.tid.setText(String.valueOf(position +1));
-        holder.tcountry.setText(country);
+    public void onBindViewHolder(@NonNull ArticleViewHolder holder, int position) {
+        Article article = articleList.get(position);
+        holder.tTitle.setText(article.getTitle());
+        holder.tContent.setText(article.getContent());
+        holder.tView.setText("View: " + article.getView());
+        holder.imgCover.setImageResource(article.getImg_cover());
     }
 
     @Override
     public int getItemCount() {
-        return countryList.size();
+        return articleList.size();
+    }
+    public Article getArticle(int position) {
+
+        return articleList.get(position);
+    }
+
+    public ArrayList<Article> getArticleList() {
+
+        return articleList;
     }
 }
